@@ -4,7 +4,7 @@ package edu.rcc.student.bwarfield.CIS18B.SpaceInvaders;
 public class EnemyShotEntity extends Entity {
 
     //projectile speed
-    private float shotSpeed = 1000;
+    private float shotSpeed = 500;
     //The game in which this entity exists
     private InvaderGame game;
     //True if this shot hit something
