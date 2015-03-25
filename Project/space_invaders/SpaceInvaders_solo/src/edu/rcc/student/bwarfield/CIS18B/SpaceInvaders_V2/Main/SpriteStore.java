@@ -34,13 +34,12 @@ public class SpriteStore {
         if (sprites.get(ref) != null){
             return (Sprite) sprites.get(ref);
         }
-        //otherwise get image rom resource loader
+        //otherwise get image from resource loader
         BufferedImage sourceImage = null;
         
         try{
-            //get resource url suning classLoader
+            //get resource url using classLoader
             URL url = this.getClass().getClassLoader().getResource(ref);
-            
             //call fail if ref url returns empty
             if (url == null){
                 fail("Unable to find ref: "+ref);
@@ -56,7 +55,7 @@ public class SpriteStore {
         GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         Image image = gc.createCompatibleImage(sourceImage.getWidth(),sourceImage.getHeight(),Transparency.BITMASK);
         
-        //draw source image into the accelerated image
+        //draw source image into the accelerated graphics
         image.getGraphics().drawImage(sourceImage,0,0,null);
         
         // create a sprite, add to cache and return it

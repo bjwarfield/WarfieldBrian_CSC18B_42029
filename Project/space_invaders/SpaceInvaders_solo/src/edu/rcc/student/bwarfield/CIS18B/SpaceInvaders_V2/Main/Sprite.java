@@ -8,6 +8,12 @@ import java.awt.Image;
 public class Sprite {
     //sprite image
     private Image image;
+
+    //returns sprite image
+    //@return Image sprite image
+    public Image getImage() {
+        return image;
+    }
     
     //create sprite based on image
     //@param image the image that is this sprite

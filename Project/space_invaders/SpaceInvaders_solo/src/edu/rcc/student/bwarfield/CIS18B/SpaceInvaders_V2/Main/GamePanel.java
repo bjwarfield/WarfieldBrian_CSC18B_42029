@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     //Panel Dimentions
-    public static final int G_WIDTH = 800;
+    public static final int G_WIDTH = 600;
     public static final int G_HEIGHT = 600;
     //game thread
     private Thread thread;
@@ -22,8 +22,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     //2d rendering canvas
     private Graphics2D g;
     //counting system
-    private final int FPS = 60;
-    private float averageFPS;
+    public static final int FPS = 60;
+    public static float averageFPS;
     private final long TARGETTIME = 1000 / FPS;
 
     //Game State Manager
@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             lastLoopTime = System.currentTimeMillis();
 
             //update game mechanics
-            gameUpdate();
+            gameUpdate(delta);
             //render the buffered image
             gameRender();
             //swap the buffer
@@ -91,7 +91,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
             //wait the remaining time to get desired fps
             try {
-                Thread.sleep(TARGETTIME - (System.currentTimeMillis() - lastLoopTime) / 1000);
+                Thread.sleep(TARGETTIME - delta/ 1000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -108,8 +108,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
     }
 
-    private void gameUpdate() {
-        gsm.gameUpdate();
+     
+    private void gameUpdate(long delta) {
+        gsm.gameUpdate(delta);
     }
 
     private void gameRender() {
@@ -128,17 +129,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent key) {
-        gsm.keyPressed(key.getKeyCode());
+       gsm.keyTyped(key.getKeyCode());
     }
 
     @Override
     public void keyPressed(KeyEvent key) {
-        gsm.keyReleased(key.getKeyCode());
+        gsm.keyPressed(key.getKeyCode()); 
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
+    public void keyReleased(KeyEvent key) {
+        gsm.keyReleased(key.getKeyCode());
     }
+    
+    
 
 }
