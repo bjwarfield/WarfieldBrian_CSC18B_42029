@@ -19,6 +19,7 @@ public class EnemyEntity extends Entity {
     private int rank;
     private boolean hit;
     private boolean dead;
+    private int value;
 
     //Create a new entity to represent the enemy
     // @param game The game in which the enemy is being created
@@ -29,7 +30,7 @@ public class EnemyEntity extends Entity {
         super(x, y, ref);
         this.game = game;
 
-        health = 1;
+        health = 5;
         dead = hit = false;
         
         
@@ -132,7 +133,12 @@ public class EnemyEntity extends Entity {
         shot.setVerticalMovement((float) (speed * Math.cos(toRadians(deg))));
     }
     
-        //override draw method
+    //is it dead?
+    public boolean isDead(){
+        return dead;
+    }
+    
+    //override draw method
     @Override
     public void draw(Graphics g) {
 
@@ -157,12 +163,16 @@ public class EnemyEntity extends Entity {
 
         // if shot, take damage
         if (other instanceof ShotEntity) {
+            if(((ShotEntity)other).hit()){
+                return;
+            }
             health--;
             hit = true;
             // remove the affected entities
             if (health <= 0) {
                 dead = true;
                 game.getRemoveList().add(this);
+
             }
 
         }

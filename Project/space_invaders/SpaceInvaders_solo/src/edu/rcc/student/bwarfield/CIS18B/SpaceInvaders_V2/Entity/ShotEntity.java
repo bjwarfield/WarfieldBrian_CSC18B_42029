@@ -3,11 +3,9 @@ package edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.Entity;
 //player projectiles
 import edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.GameState.GameState;
 import edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.Main.GamePanel;
-import edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.Main.ImageShader;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 public class ShotEntity extends Entity {
 
@@ -58,12 +56,17 @@ public class ShotEntity extends Entity {
         super.draw(g);
 
         //draw hitbox for debugging
-//        g.setColor(Color.GREEN);
-//        g.fillRect((int) hitBox.getX(), (int) hitBox.getY(), (int) hitBox.getWidth(), (int) hitBox.getHeight());
+        g.setColor(Color.GREEN);
+        g.drawRect((int) hitBox.getX(), (int) hitBox.getY(), (int) hitBox.getWidth(), (int) hitBox.getHeight());
+    }
+
+    public boolean hit() {
+        return hit;
     }
 
     //Notification that the player's ship has collided with something
     // @param other The entity with which the shot has collided
+
     @Override
     public void collidedWith(Entity other) {
         // prevents double kills, if we've already hit something, don't collide
@@ -72,12 +75,16 @@ public class ShotEntity extends Entity {
         }
 
         // if we've hit an alien, damage it!
-//        if (other instanceof EnemyEntity) {
-//            // remove the affected entities
-//            game.removeEntity(this);
-//
-//            hit = true;
-//        }
+        if (other instanceof EnemyEntity) {
+            if (((EnemyEntity) other).isDead()) {
+                return;
+            } else {
+                // remove the affected entities
+                game.getRemoveList().add(this);
+
+                hit = true;
+            }
+        }
     }
 
 }

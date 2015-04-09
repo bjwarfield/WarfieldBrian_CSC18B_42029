@@ -90,12 +90,12 @@ public class Level1State extends GameState {
         //measure time
         long clockTime = System.currentTimeMillis() - timeStart;
 
-        //execute player clss logic
+        //execute player class logic
         ship1.doLogic();
 
         
 
-        //map movement
+        //map parrallax movement
         float posShift = ((delta * ship1.getHorizontalMovement()) / 1000) * -0.6f;
         tileMap.setPosistion(tileMap.getX() + posShift, tileMap.getY());
         mapShift = tileMap.getX()-(GamePanel.G_WIDTH-tileMap.getWidth())/2;
@@ -118,12 +118,14 @@ public class Level1State extends GameState {
                 for (int k = 0; k < this.getEntities().size(); k++) {
                     if (this.getEntities().get(k) instanceof EnemyEntity) {
 //                        ((EnemyEntity)this.getEntities().get(k)).shoot(300,ship1, 15);//shoot at angle to player 
-                        ((EnemyEntity)this.getEntities().get(k)).shoot(300,ship1, 0);//shoot at angle to player 
+                        ((EnemyEntity)this.getEntities().get(k)).shoot(350,ship1, (int) 0);//shoot at angle to player 
+                        ((EnemyEntity)this.getEntities().get(k)).shoot(350,ship1, (int) 5);//shoot at angle to player 
+                        ((EnemyEntity)this.getEntities().get(k)).shoot(350,ship1, (int) -5);//shoot at angle to player 
 //                        ((EnemyEntity) this.getEntities().get(k)).shoot(300, ship1, true);//shoot at player to neaser 45deg
 //                        ((EnemyEntity) this.getEntities().get(k)).shoot(1500);//shoot straight down
                         
 //                        for(int j = 0; j<=360; j+=45){
-//                            ((EnemyEntity) this.getEntities().get(k)).shoot(500,j);//shoot at angle
+//                            ((EnemyEntity) this.getEntities().get(k)).shoot(150, (int) Math.toDegrees(j));//shoot at angle
 //                        }
 
                     }
@@ -132,8 +134,8 @@ public class Level1State extends GameState {
 
         //level scripts
         //use map y position or clock time to trigger events
-        if (clockTime / 1000.0f > 3) {
-            tileMap.setPosistion(tileMap.getX(), (float) (tileMap.getY() + (delta * 1) / 1000.0));
+        if (clockTime / 1000.0f > 1) {
+//            tileMap.setPosistion(tileMap.getX(), (float) (tileMap.getY() + (delta * 1) / 1000.0));
             spawnEnemy();
 //            System.out.println("yshift: "+ (float) ((delta * 1) / 1000.0));
         }

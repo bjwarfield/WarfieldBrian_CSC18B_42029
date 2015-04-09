@@ -26,6 +26,16 @@ public class PlayerEntity extends Entity {
     private long lastShot = 0;
     //player shootrate in 1/ms
     private long shotInterval = 250;
+    
+    //shot vars
+    private int shotType;
+    private int shotLevel;
+    
+    public static final int BULLET = 1;
+    public static final int LASER = 2;
+    
+    
+    
 
     //ships speed in pixels/sec
     private float moveSpeed = 300;
@@ -73,6 +83,9 @@ public class PlayerEntity extends Entity {
 
         //initialize key event vars
         up = down = left = right = trigger = false;
+        
+        shotType = BULLET;
+        shotLevel = 2;
     }
 
     //do logic associated with this player
@@ -117,6 +130,7 @@ public class PlayerEntity extends Entity {
             shoot();
         }
 
+        //ship tilt animation
         if (System.currentTimeMillis() - lastFrameChange > 20) {
             if (dx < 0) {
                 if (currentFrame > 0) {
@@ -172,8 +186,31 @@ public class PlayerEntity extends Entity {
         }
         //shoot if interval has passed
         lastShot = System.currentTimeMillis();
-        ShotEntity shot = new ShotEntity(game, -90,(int) (x), (int) (y - 6), "resources/sprites/player/shotBullet1.png");
-        game.getEntities().add(shot);
+        if(shotType == BULLET){
+            if(shotLevel ==1){
+               ShotEntity shot = new ShotEntity(game, -90,(int) (x), (int) (y - 6), "resources/sprites/player/shotBullet1.png"); 
+               game.getEntities().add(shot);
+            }else if(shotLevel ==2){
+                ShotEntity shot1 = new ShotEntity(game, -90,(int) (x+2), (int) (y - 6), "resources/sprites/player/shotBullet1.png"); 
+               game.getEntities().add(shot1);
+                ShotEntity shot2 = new ShotEntity(game, -90,(int) (x-2), (int) (y - 6), "resources/sprites/player/shotBullet1.png"); 
+               game.getEntities().add(shot2);
+               
+            }else if(shotLevel ==3){
+                
+            }else if(shotLevel ==4){
+                
+            }else if(shotLevel ==5){
+                
+            }else if(shotLevel ==6){
+                
+            }else if(shotLevel ==7){
+                
+            }
+        }
+        
+        
+        
     }
 
     //override draw method
@@ -188,8 +225,8 @@ public class PlayerEntity extends Entity {
         super.draw(g);
 
         //draw hitbox for debugging
-//        g.setColor(Color.BLUE);
-//        g.fillRect((int) hitBox.getX(), (int) hitBox.getY(), (int) hitBox.getWidth(), (int) hitBox.getHeight());
+        g.setColor(Color.BLUE);
+        g.fillRect((int) hitBox.getX(), (int) hitBox.getY(), (int) hitBox.getWidth(), (int) hitBox.getHeight());
     }
 
     //move ship
