@@ -20,7 +20,6 @@ public class TileMap {
     private int xmax;
     private int ymax;
 
-    private float tween;
 
     //map
     private int[][] map;
@@ -48,7 +47,7 @@ public class TileMap {
         this.tileSize = tileSize;
         numRowsToDraw = GamePanel.G_HEIGHT / tileSize + 2;
         numColsToDraw = GamePanel.G_WIDTH / tileSize + 2;
-//        tween = (float) 0.07;
+
     }
 
     //load tileset image for tilemap
@@ -116,13 +115,13 @@ public class TileMap {
 
     //getter methods
     //@return horizontal map position
-    public int getX() {
-        return (int) x;
+    public float getX() {
+        return x;
     }
 
     //@return vertical map position
-    public int getY() {
-        return (int) y;
+    public float getY() {
+        return y;
     }
 
     //@return map tileSize in pixels
@@ -199,7 +198,7 @@ public class TileMap {
                 break;
             }
             for (int col = colOffset; col < colOffset + numColsToDraw; col++) {//for each col
-                if (col >= numCols) {//bound checkk
+                if (col >= numCols) {//bound check
                     break;
                 }
 

@@ -16,5 +16,6 @@ public class Game {
         window.pack();
         window.setResizable(false);
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
     }
 }
