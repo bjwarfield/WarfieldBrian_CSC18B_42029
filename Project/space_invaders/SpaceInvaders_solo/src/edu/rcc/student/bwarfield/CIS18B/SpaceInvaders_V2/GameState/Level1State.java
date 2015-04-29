@@ -144,7 +144,7 @@ public class Level1State extends GameState {
         //level scripts
         //use map y position or clock time to trigger events
         if (clockTime / 1000.0f > 1) {
-//            tileMap.setPosistion(tileMap.getX(), (float) (tileMap.getY() + (delta * 1) / 1000.0));
+            tileMap.setPosistion(tileMap.getX(), (float) (tileMap.getY() -(delta * 50) ));
             spawnEnemy();
 //            System.out.println("yshift: "+ (float) ((delta * 1) / 1000.0));
         }

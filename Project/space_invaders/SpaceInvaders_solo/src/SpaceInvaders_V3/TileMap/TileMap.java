@@ -1,7 +1,7 @@
-package edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.TileMap;
+package SpaceInvaders_V3.TileMap;
 
-import edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.Main.GamePanel;
-import edu.rcc.student.bwarfield.CIS18B.SpaceInvaders_V2.Main.SpriteStore;
+import SpaceInvaders_V3.Main.ResourceFactory;
+import SpaceInvaders_V3.Util.Sprite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -13,14 +13,14 @@ public class TileMap {
     //position
     private float x;
     private float y;
+    private float dx;
+    private float dy;
 
-    
     //bounds
     private int xmin;
     private int ymin;
     private int xmax;
     private int ymax;
-
 
     //map
     private int[][] map;
@@ -31,23 +31,23 @@ public class TileMap {
     private int height;
 
     //tileset
-    private BufferedImage tileSet;
+    private Sprite tileSet;
     private int numTilesAcross;
     private int numTilesDown;
-    private Tile[][] tiles;
+    private Sprite[][] tiles;
 
     //drawing
     private int rowOffset;
     private int colOffset;
-    private int numRowsToDraw;//(rowOffset+(GamePanel.G_HEIGHT/tileSize))
+    private int numRowsToDraw;//(rowOffset+(Java2DGameWindow.G_HEIGHT/tileSize))
     private int numColsToDraw;
 
     //class constructor 
     //@param tileSize size on individual map tiles in px
     public TileMap(int tileSize) {
         this.tileSize = tileSize;
-        numRowsToDraw = GamePanel.G_HEIGHT / tileSize + 2;
-        numColsToDraw = GamePanel.G_WIDTH / tileSize + 2;
+        numRowsToDraw = ResourceFactory.get().getGameWindow().getHeight() / tileSize + 2;
+        numColsToDraw = ResourceFactory.get().getGameWindow().getWidth() / tileSize + 2;
 
     }
 
@@ -56,20 +56,20 @@ public class TileMap {
     public void loadTiles(String ref) {
 
         //get image from spritesstore singlet
-        tileSet = (BufferedImage) SpriteStore.get().getSprite(ref).getImage();
+        tileSet = ResourceFactory.get().getSprite(ref);
         //calculate number of tiles in sileset
         numTilesAcross = tileSet.getWidth() / tileSize;
         numTilesDown = tileSet.getHeight() / tileSize;
 
         //create array index for each tile
-        tiles = new Tile[numTilesDown][numTilesAcross];
+        tiles = new Sprite[numTilesDown][numTilesAcross];
 
         //split tileset image into individual tiles
-        BufferedImage subImage;
+//        BufferedImage subImage;
         for (int col = 0; col < numTilesAcross; col++) {//for each col in tileset
             for (int row = 0; row < numTilesDown; row++) {//for each row in tileset
-                subImage = tileSet.getSubimage(col * tileSize, row * tileSize, tileSize, tileSize);//get subimage
-                tiles[row][col] = new Tile(subImage, Tile.NORMAL);//assign to tile with normal type
+//                subImage = tileSet.getSubimage(col * tileSize, row * tileSize, tileSize, tileSize);//get subimage
+                tiles[row][col] = ResourceFactory.get().getSubSprite(tileSet.getRef(), col * tileSize, row * tileSize, tileSize, tileSize);//assign to tile with normal type
             }
 
         }
@@ -92,9 +92,9 @@ public class TileMap {
             height = numRows * tileSize;
 
             //set bounds
-            xmin = -width + GamePanel.G_WIDTH;
+            xmin = -width + ResourceFactory.get().getGameWindow().getWidth();
             xmax = 0;
-            ymin = -height + GamePanel.G_HEIGHT;
+            ymin = -height + ResourceFactory.get().getGameWindow().getHeight();
             ymax = 0;
 
             String delim = "\\s+";//regex for whitespace
@@ -112,6 +112,58 @@ public class TileMap {
             e.printStackTrace();
         }
 
+    }
+
+    //move method based on timng system
+    //@param delta the amount of time passed in seconds
+    public void move(Double delta) {
+        if (dx > 0 && x + dx * delta >= xmax) {
+            dx = 0;
+            x = xmax;
+        }
+        if (dx < 0 && x + dx * delta <= xmin) {
+            dx = 0;
+            x = xmin;
+        }
+        if (dy > 0 && y + dy * delta >= ymax) {
+            dy = 0;
+            y = ymax;
+        }
+        if (dy < 0 && y + dy * delta <= ymin) {
+            dy = 0;
+            y = ymin;
+        }
+
+        //update location based on move speed
+        x += (delta * dx);//shift horizontally
+        y += (delta * dy);//shift vertically
+        
+        setPosistion(x, y);
+
+    }
+
+    //set horizontal speed
+    //@param dx speed in pixels/sec
+    public void setHorizontalMovement(float dx) {
+        this.dx = dx;
+    }
+
+    //set vertical speed
+    //@param dy speed in pixels/sec
+    public void setVerticalMovement(float dy) {
+        this.dy = dy;
+    }
+
+    //get Horizontal speed
+    //@return speed in pixels/sec
+    public float getHorizontalMovement() {
+        return dx;
+    }
+
+    //get vertical speed
+    //@return speed in pixels/sec
+    public float getVerticalMovement() {
+        return dy;
     }
 
     //getter methods
@@ -149,14 +201,6 @@ public class TileMap {
     public int getNumCols() {
         return numCols;
     }
-    
-    //@return tile time (unused in this game at the moment. Used for collision with map objects)
-    public int getType(int row, int col) {
-        int rc = map[row][col];
-        int r = rc / numTilesAcross;
-        int c = rc % numTilesAcross;
-        return tiles[r][c].getType();
-    }
 
     //set position of map
     //there will generally be negative values to reach the parts of the map that are not on the screen
@@ -166,7 +210,7 @@ public class TileMap {
         //set map coordinates
         this.x = x;
         this.y = y;
-        
+
         //check against boundaries
         fixBounds();
 
@@ -193,7 +237,7 @@ public class TileMap {
 
     //draw map to graphics context
     //@param graphics context
-    public void draw(Graphics2D g) {
+    public void draw() {
         for (int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {//for each row
             if (row >= numRows) {//bound check
                 break;
@@ -211,8 +255,10 @@ public class TileMap {
                 //parse numbers to row/col positions in Tiles instance
                 int r = rc / numTilesAcross;
                 int c = rc % numTilesAcross;
-                g.drawImage(
-                        tiles[r][c].getImage(), (int) x + col * tileSize, (int) y + row * tileSize, null
+
+                tiles[r][c].draw(
+                        (int) x + col * tileSize,
+                        (int) y + row * tileSize
                 );//draw each tile in appropriate position
 
             }
