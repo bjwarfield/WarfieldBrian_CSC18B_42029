@@ -2,6 +2,7 @@ package SpaceInvaders_V4.Entity;
 
 import SpaceInvaders_V4.GameState.GameState;
 import SpaceInvaders_V4.Main.ResourceFactory;
+import SpaceInvaders_V4.Users.Score;
 import SpaceInvaders_V4.Util.Sprite;
 import SpaceInvaders_V4.Util.SystemTimer;
 import java.awt.Color;
@@ -42,7 +43,7 @@ public class EnemySwarmer extends EnemyEntity {
     @Override
     public void doLogic() {
         super.doLogic();
-        
+
         //animate sprite frames
         if (SystemTimer.getTime() - lastFrameChange > 0.04) {
             currentFrame = currentFrame + 1 >= frames.length ? 0 : currentFrame + 1;
@@ -53,7 +54,7 @@ public class EnemySwarmer extends EnemyEntity {
         //movement script
         if (moveTicks > lastMove) {
             if (pattern == 1) {
-                
+
             } else {
                 if (moveTicks == 1) {//init direction 
                     angle = 0;
@@ -65,7 +66,7 @@ public class EnemySwarmer extends EnemyEntity {
 
                     }
                 } else if (moveTicks == 25) {//set left or right based on screen pos
-                    angle = x > 400 ? -90 : 90;
+                    angle = x > 400 ? -70 : 70;
                 } else if (moveTicks > 25) {
                     if (moveTicks < 75 && speed < 100) {//speed up in one directon for next second
                         speed += 4;
@@ -86,11 +87,10 @@ public class EnemySwarmer extends EnemyEntity {
         if (shotTicks > lastShot) {
             if (pattern == 1) {
             } else {
-                if (shotTicks % (int) (60 - random() * 10) == 0) {
+                if (shotTicks % 60 == 50 || shotTicks % 60 == 51 ) {
                     shoot(150 + 20 * rank, target, 0);
                     shoot(150 + 20 * rank, target, 5);
                     shoot(150 + 20 * rank, target, -5);
-                    shotTicks = 1;
                 }
             }
             lastShot = shotTicks;
@@ -101,7 +101,7 @@ public class EnemySwarmer extends EnemyEntity {
     public void draw() {
 
         //draw shadow image under ship
-        shadowFrames[currentFrame].draw((int) x- (sprite.getWidth() / 4), (int) y);
+        shadowFrames[currentFrame].draw((int) x - (sprite.getWidth() / 4), (int) y);
 
         //draw ship
         sprite.draw((int) x - (sprite.getWidth() / 2), (int) y - (sprite.getHeight() / 2));
@@ -114,7 +114,7 @@ public class EnemySwarmer extends EnemyEntity {
         //draw hitbox for debugging
 //        (ResourceFactory.get().getGameWindow()).fillRect(Color.RED, hitBox);
     }
-    
+
     @Override
     public void collidedWith(Entity other) {
 
@@ -130,12 +130,14 @@ public class EnemySwarmer extends EnemyEntity {
             // remove the affected entities
             if (health <= 0) {
                 dead = true;
+                Score.addKill();
+                Score.addScore(value);
                 game.getRemoveEnemyList().add(this);
                 MedExplosion me = new MedExplosion(game, (int) x, (int) y, "long");
                 me.setHorizontalMovement(dx * 0.6f);
                 me.setVerticalMovement(dy * 0.6f);
                 game.getEffects().add(me);
-                Item pu = new PowerUp(game, (int) x, (int)y, "");
+                Item pu = new PowerUp(game, (int) x, (int) y, "");
                 game.getItems().add(pu);
             }
 

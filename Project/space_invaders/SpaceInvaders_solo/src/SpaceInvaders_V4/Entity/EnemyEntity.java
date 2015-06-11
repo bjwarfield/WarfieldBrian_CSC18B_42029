@@ -2,6 +2,7 @@ package SpaceInvaders_V4.Entity;
 
 import SpaceInvaders_V4.GameState.GameState;
 import SpaceInvaders_V4.Main.ResourceFactory;
+import SpaceInvaders_V4.Users.Score;
 import SpaceInvaders_V4.Util.Sprite;
 import SpaceInvaders_V4.Util.SystemTimer;
 import java.awt.Color;
@@ -96,7 +97,7 @@ public class EnemyEntity extends Entity {
             Entity player = (Entity) game.getPlayers().get((int) (random() * (game.getPlayers().size() - 1)));
             target.setLocation(player.getX(), player.getY());
         } else {
-            target.setLocation(x, y + 1);
+            target.setLocation(x, y + 30);
         }
 
         elapsed = SystemTimer.getTime() - startTime;
@@ -208,6 +209,7 @@ public class EnemyEntity extends Entity {
 //        (ResourceFactory.get().getGameWindow()).fillRect(Color.RED, hitBox);
     }
 
+    
     @Override
     public void collidedWith(Entity other) {
 
@@ -223,6 +225,8 @@ public class EnemyEntity extends Entity {
             // remove the affected entities
             if (health <= 0) {
                 dead = true;
+                Score.addKill();
+                Score.addScore(value);
                 game.getRemoveEnemyList().add(this);
 
             }

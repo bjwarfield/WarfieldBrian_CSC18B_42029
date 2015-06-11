@@ -66,7 +66,7 @@ public class DBConnect {
 
         try {
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-            stmt = conn.prepareStatement("SELECT count(*) FROM `entity_user` WHERE `email` = ?;");
+            stmt = conn.prepareStatement("SELECT count(*) FROM `bw1780661_entity_user` WHERE `email` = ?;");
 
             stmt.setString(1, email.trim());
             rs = stmt.executeQuery();

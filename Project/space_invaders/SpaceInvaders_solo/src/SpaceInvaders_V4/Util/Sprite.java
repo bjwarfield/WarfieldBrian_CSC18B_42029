@@ -3,6 +3,7 @@ package SpaceInvaders_V4.Util;
 //Sprite class to hold image information which can be instantiated
 
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 
 //multiple times without the need to load multiple images 
 public interface Sprite {
@@ -27,5 +28,7 @@ public interface Sprite {
     //@param y vertical coordinate
     public void draw(int x, int y);
 
+    public void drawRotate(AffineTransform tra);
+    
 
 }
