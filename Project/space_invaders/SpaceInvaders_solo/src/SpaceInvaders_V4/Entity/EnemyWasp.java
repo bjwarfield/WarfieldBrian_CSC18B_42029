@@ -8,6 +8,10 @@ import SpaceInvaders_V4.Util.SystemTimer;
 import java.awt.Color;
 import static java.lang.Math.*;
 
+/**
+ *
+ * @author Bee-Jay
+ */
 public class EnemyWasp extends EnemyEntity {
 
     private Sprite[][] bodyFrames;

@@ -2,7 +2,7 @@ package SpaceInvaders_V4.Util;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-/*
+/**
 This code was found from http://stackoverflow.com/questions/14225518/tinting-image-in-java-improvement
 Original Author is unknown
 */

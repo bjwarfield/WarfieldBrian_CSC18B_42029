@@ -5,6 +5,10 @@ import SpaceInvaders_V4.Main.ResourceFactory;
 import SpaceInvaders_V4.Util.Sprite;
 import SpaceInvaders_V4.Util.SystemTimer;
 
+/**
+ *
+ * @author Bee-Jay
+ */
 public class SmallExplosion extends Entity {
 
     private GameState game;
@@ -12,6 +16,13 @@ public class SmallExplosion extends Entity {
     private int currentFrame = 0;
     private double lastFrameChange = 0;
 
+    /**
+     *
+     * @param game
+     * @param x
+     * @param y
+     * @param ref
+     */
     public SmallExplosion(GameState game, int x, int y, String ref) {
         super(x, y, ref.equals("big") ? "resources/sprites/effects/explosion_65px_12tile.png" : "resources/sprites/effects/explosion_50px_12tile.png");
         this.game = game;

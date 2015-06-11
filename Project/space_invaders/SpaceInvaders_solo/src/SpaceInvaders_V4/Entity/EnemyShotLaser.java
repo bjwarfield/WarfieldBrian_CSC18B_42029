@@ -14,6 +14,9 @@ import java.awt.Point;
  */
 public class EnemyShotLaser extends EnemyShotEntity {
 
+    /**
+     *
+     */
     protected Point[] trail;
 
     /**

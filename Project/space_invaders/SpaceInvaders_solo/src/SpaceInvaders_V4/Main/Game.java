@@ -41,6 +41,7 @@ public class Game extends Canvas implements GameWindowCallback {
      */
     @Override
     public void init() {
+        //load images into memory
         ResourceFactory.get().getSprite("resources/sprites/enemy/ogre.png");
         ResourceFactory.get().getSprite("resources/sprites/enemy/ogreTurret.png");
         ResourceFactory.get().getSprite("resources/sprites/enemy/enemyship2c.png");

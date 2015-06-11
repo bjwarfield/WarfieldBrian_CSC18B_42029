@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Bee-Jay
+ * @author Travis
  */
 public class EnemyBossOgre extends EnemyEntity {
 

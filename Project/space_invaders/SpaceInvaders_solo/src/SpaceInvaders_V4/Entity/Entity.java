@@ -5,17 +5,43 @@ import SpaceInvaders_V4.Util.Sprite;
 import SpaceInvaders_V4.Main.ResourceFactory;
 import java.awt.Rectangle;
 
+/**
+ * abstract class for game entities
+ * @author Bee-Jay
+ */
 public abstract class Entity {
 
-    //current entity coortinates
-    protected float x;//horizontal
-    protected float y;//vetrical
-    protected Sprite sprite;//sprite for entity
-    //speed of entity in pix/sec
-    protected float dx;//horizontal speed
-    protected float dy;//vertical speed
+   
+    /**
+     *current horizontal coordinates
+     */
+    protected float x;//
 
-    //collision detection variables
+    /**
+     *current vertical coordinates
+     */
+    protected float y;
+
+    /**
+     *sprite for entity
+     */
+    protected Sprite sprite;
+    //
+
+    /**
+     *horizontal speed of entity in pix/sec
+     */
+    protected float dx;
+
+    /**
+     *vertical speed of entity in pix/sec
+     */
+    protected float dy;
+
+
+    /**
+     * collision detection variable
+     */
     protected Rectangle hitBox = new Rectangle();
 
     /**

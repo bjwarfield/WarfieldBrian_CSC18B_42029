@@ -9,6 +9,10 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.toRadians;
 
+/**
+ *
+ * @author Bee-Jay
+ */
 public class PowerUp extends Item {
 
     private GameState game;
@@ -26,6 +30,13 @@ public class PowerUp extends Item {
     private int speed;
     private float incrementAngle;
 
+    /**
+     *
+     * @param game
+     * @param x
+     * @param y
+     * @param ref
+     */
     public PowerUp(GameState game, int x, int y, String ref) {
         super(x, y, "resources/sprites/player/powerUps.png");
         this.type = Item.BULLET;

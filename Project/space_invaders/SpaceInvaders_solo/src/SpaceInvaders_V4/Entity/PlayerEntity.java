@@ -9,7 +9,9 @@ import SpaceInvaders_V4.Util.SystemTimer;
 import java.awt.Color;
 import java.awt.Rectangle;
 
-//player controlled entity
+/**
+ * @author Bee-Jay
+ */
 public class PlayerEntity extends Entity {
 
     //the game in which the ship exists
@@ -27,8 +29,22 @@ public class PlayerEntity extends Entity {
     private int thrusterCol = 0;
     private final int[] thrusterPos = new int[4];
     private int throttle;
+
+    /**
+     * Constant value for setThrottle method Thrusters will not render
+     */
     public static final int THROTTLE_OFF = 0;
+
+    /**
+     * Constant value for setThrottle method Thrusters will render at normal
+     * length
+     */
     public static final int THROTTLE_FULL = 1;
+
+    /**
+     * Constant value for setThrottle method Thrusters will render at extended
+     * length
+     */
     public static final int THROTTLE_TURBO = 2;
 
     //collision fields
@@ -48,7 +64,14 @@ public class PlayerEntity extends Entity {
     private int shotType;
     private int shotLevel;
 
+    /**
+     * Constant value for shotLevel bullets will be fired in shoot method
+     */
     public static final int BULLET = 1;
+
+    /**
+     * Constant value for shotLevel Lasers will be fired in shoot method
+     */
     public static final int LASER = 2;
     private final int BULLETSPEED = 750;
     private final int LASERSPEED = 800;
@@ -317,8 +340,14 @@ public class PlayerEntity extends Entity {
 
     }
 
+    /**
+     * Set Throttle Level
+     *
+     * @param throttle PlayerEntity.THROTTLE_OFF, PlayerEntity.THROTTLE_FULL, or
+     * PlayerEntity.THROTTLE_Turbo
+     */
     public void setThrottle(int throttle) {
-        if (throttle < THROTTLE_OFF || throttle > THROTTLE_TURBO) {
+        if (throttle < THROTTLE_OFF || throttle > THROTTLE_TURBO) {//bound check
             throttle = THROTTLE_FULL;
         }
         this.throttle = throttle;

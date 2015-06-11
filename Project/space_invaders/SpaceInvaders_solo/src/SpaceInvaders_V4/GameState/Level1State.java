@@ -320,23 +320,18 @@ public class Level1State extends GameState {
 
         if (playerControl) {
             if (k == KeyEvent.VK_A) {
-//                ((PlayerEntity) ship1).setLeft(true);
                 left = true;
             }
             if (k == KeyEvent.VK_D) {
-//                ((PlayerEntity) ship1).setRight(true);;
                 right = true;
             }
             if (k == KeyEvent.VK_W) {
-//                ((PlayerEntity) ship1).setUp(true);
                 up = true;
             }
             if (k == KeyEvent.VK_S) {
-//                ((PlayerEntity) ship1).setDown(true);
                 down = true;
             }
             if (k == KeyEvent.VK_SPACE) {
-//                ((PlayerEntity) ship1).setTrigger(true);
                 trigger = true;
             }
         }
@@ -347,19 +342,15 @@ public class Level1State extends GameState {
     @Override
     public void keyReleased(int k) {
         if (k == KeyEvent.VK_A) {
-//            ((PlayerEntity) ship1).setLeft(false);
             left = false;
         }
         if (k == KeyEvent.VK_D) {
-//            ((PlayerEntity) ship1).setRight(false);
             right = false;
         }
         if (k == KeyEvent.VK_W) {
-//            ((PlayerEntity) ship1).setUp(false);
             up = false;
         }
         if (k == KeyEvent.VK_S) {
-//            ((PlayerEntity) ship1).setDown(false);
             down = false;
         }
         if (k == KeyEvent.VK_SPACE) {
@@ -451,7 +442,7 @@ public class Level1State extends GameState {
         // every enemy entity. If any of them collide notify 
         // both entities that the collision has occurred
 
-        //player bullet -> enemy collisions
+        // enemy -> player bullet collisions
         for (int p = 0; p < this.getPlayerEntities().size(); p++) {
             Entity pe = (Entity) this.getPlayerEntities().get(p);
             for (int s = 0; s < this.getEnemyEntities().size(); s++) {
@@ -468,7 +459,7 @@ public class Level1State extends GameState {
         for (int p = 0; p < this.getPlayers().size(); p++) {
 
             Entity pe = (Entity) this.getPlayers().get(p);
-            //player -> enemy collisions
+            //enemy -> player collisions
             for (int e = 0; e < this.getEnemyEntities().size(); e++) {
                 Entity ee = (Entity) this.getEnemyEntities().get(e);
                 if (ee.collidesWith(pe)) {
@@ -477,7 +468,7 @@ public class Level1State extends GameState {
                 }
             }
 
-            //player-> item collisions
+            //player -> item collisions
             for (int i = 0; i < this.getItems().size(); i++) {
                 Entity ie = (Entity) this.getItems().get(i);
                 if (pe.collidesWith(ie)) {

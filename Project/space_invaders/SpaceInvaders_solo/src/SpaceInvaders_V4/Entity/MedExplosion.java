@@ -5,14 +5,24 @@ import SpaceInvaders_V4.Main.ResourceFactory;
 import SpaceInvaders_V4.Util.Sprite;
 import SpaceInvaders_V4.Util.SystemTimer;
 
+/**
+ *
+ * @author Bee-Jay
+ */
 public class MedExplosion extends Entity {
 
     private GameState game;
     private Sprite[] frames;
     private int currentFrame = 0;
     private double lastFrameChange = 0;
-    private double timer;
 
+    /**
+     *
+     * @param game
+     * @param x
+     * @param y
+     * @param ref
+     */
     public MedExplosion(GameState game, int x, int y, String ref) {
         super(x, y, ref.equals("long") ? "resources/sprites/effects/explosion_100px_16tile.png" : "resources/sprites/effects/explosion_100px_9tile.png");
         this.game = game;
@@ -25,7 +35,6 @@ public class MedExplosion extends Entity {
         }
 
         sprite = frames[currentFrame];
-        timer = SystemTimer.getTime();
 
     }
 

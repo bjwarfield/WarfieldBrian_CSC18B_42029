@@ -11,6 +11,10 @@ import static java.lang.Math.random;
 import static java.lang.Math.sin;
 import static java.lang.Math.toRadians;
 
+/**
+ *
+ * @author Bee-Jay
+ */
 public class EnemySwarmer extends EnemyEntity {
 
     private Sprite[] frames;
@@ -19,6 +23,14 @@ public class EnemySwarmer extends EnemyEntity {
     private int currentFrame;
     private double lastFrameChange = 0;
 
+    /**
+     *
+     * @param game
+     * @param rank
+     * @param x
+     * @param y
+     * @param ref
+     */
     public EnemySwarmer(GameState game, int rank, int x, int y, String ref) {
         super(game, rank, x, y, ref.equals("p") ? "resources/sprites/enemy/swarmer_p.png" : "resources/sprites/enemy/swarmer_r.png");
 
@@ -53,30 +65,27 @@ public class EnemySwarmer extends EnemyEntity {
 
         //movement script
         if (moveTicks > lastMove) {
-            if (pattern == 1) {
 
-            } else {
-                if (moveTicks == 1) {//init direction 
-                    angle = 0;
-                    speed = 250;
+            if (moveTicks == 1) {//init direction 
+                angle = 0;
+                speed = 250;
 
-                } else if (moveTicks > 1 && moveTicks < 25) {//slow down for the first second
-                    if (speed > 0) {
-                        speed -= 10;
+            } else if (moveTicks > 1 && moveTicks < 25) {//slow down for the first second
+                if (speed > 0) {
+                    speed -= 10;
 
-                    }
-                } else if (moveTicks == 25) {//set left or right based on screen pos
-                    angle = x > 400 ? -70 : 70;
-                } else if (moveTicks > 25) {
-                    if (moveTicks < 75 && speed < 100) {//speed up in one directon for next second
-                        speed += 4;
-                    } else if (speed > 0) {//slow down in same directon for next second
-                        speed -= 4;
-                    }
-                    if (moveTicks == 125) {// loop timer back
-                        moveTicks = 24;
+                }
+            } else if (moveTicks == 25) {//set left or right based on screen pos
+                angle = x > 400 ? -70 : 70;
+            } else if (moveTicks > 25) {
+                if (moveTicks < 75 && speed < 100) {//speed up in one directon for next second
+                    speed += 4;
+                } else if (speed > 0) {//slow down in same directon for next second
+                    speed -= 4;
+                }
+                if (moveTicks == 125) {// loop timer back
+                    moveTicks = 24;
 
-                    }
                 }
             }
             setHorizontalMovement((float) (sin(toRadians(angle)) * speed));
@@ -85,14 +94,13 @@ public class EnemySwarmer extends EnemyEntity {
         }
         //shooting script
         if (shotTicks > lastShot) {
-            if (pattern == 1) {
-            } else {
-                if (shotTicks % 60 == 50 || shotTicks % 60 == 51 ) {
-                    shoot(150 + 20 * rank, target, 0);
-                    shoot(150 + 20 * rank, target, 5);
-                    shoot(150 + 20 * rank, target, -5);
-                }
+
+            if (shotTicks % 60 == 50 || shotTicks % 60 == 51) {
+                shoot(150 + 20 * rank, target, 0);
+                shoot(150 + 20 * rank, target, 5);
+                shoot(150 + 20 * rank, target, -5);
             }
+
             lastShot = shotTicks;
         }
     }

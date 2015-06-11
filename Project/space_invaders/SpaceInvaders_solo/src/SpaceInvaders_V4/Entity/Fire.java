@@ -23,6 +23,12 @@ public class Fire extends Entity {
     int tileHeight;
     int tileWidth;
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param ref
+     */
     public Fire(int x, int y, String ref) {
         super(x, y, ref.equals("small") ? "resources/sprites/effects/fire_16px_8x4tile.png"
                 : ref.equals("med") ? "resources/sprites/effects/fire_32x48px_8x5tile.png" : "resources/sprites/effects/fire_32x64px_8x4tile.png");

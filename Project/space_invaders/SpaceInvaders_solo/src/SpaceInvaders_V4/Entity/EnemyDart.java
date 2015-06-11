@@ -8,11 +8,23 @@ import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import static java.lang.Math.*;
 
+/**
+ * Basic enemy class
+ * @author Bee-Jay
+ */
 public class EnemyDart extends EnemyEntity {
 
     float turn = 0.5f;
     AffineTransform at = new AffineTransform();
 
+    /**
+     *
+     * @param game current gameState
+     * @param rank health/value factor
+     * @param x horizontal position
+     * @param y vertical position
+     * @param ref optional flag, "b" for bronze, "c" for copper, default green
+     */
     public EnemyDart(GameState game, int rank, int x, int y, String ref) {
 
         super(game, rank, x, y, ref.equals("c") ? "resources/sprites/enemy/enemyship2c.png" : ref.equals("b") ? "resources/sprites/enemy/enemyship2b.png" : "resources/sprites/enemy/enemyship2a.png");
