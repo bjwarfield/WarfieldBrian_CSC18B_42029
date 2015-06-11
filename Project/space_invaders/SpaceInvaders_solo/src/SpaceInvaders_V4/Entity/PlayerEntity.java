@@ -151,7 +151,7 @@ public class PlayerEntity extends Entity {
 
         shotType = BULLET;
         shotInterval = bulletInterval;
-        shotLevel = 8;
+        shotLevel = 1;
     }
 
     //do logic associated with this player

@@ -17,6 +17,7 @@ public class Game extends Canvas implements GameWindowCallback {
      * @param renderingType constants in resource factory class
      */
     public Game(int renderingType) {
+
         //create a window based on a chosed rendering methoc
         ResourceFactory.get().setRenderingType(renderingType);
         window = ResourceFactory.get().getGameWindow();
@@ -87,7 +88,7 @@ public class Game extends Canvas implements GameWindowCallback {
         ResourceFactory.get().getSprite("resources/tilesets/PFArmaFive20Yel.png");
         ResourceFactory.get().getSprite("resources/title/title.png");
         ResourceFactory.get().getSprite("resources/backgrounds/Space.gif");
-        
+
     }
 
     /**
@@ -95,11 +96,6 @@ public class Game extends Canvas implements GameWindowCallback {
      * @param args
      */
     public static void main(String[] args) {
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 
         //initialize glfw library
         boolean glfwResult = Glfw.glfwInit();
